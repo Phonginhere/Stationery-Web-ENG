@@ -1,0 +1,70 @@
+﻿@model WebApplication_EProject.Models.EmployeeModel.Employee
+
+@{
+	ViewBag.Title = "Account Details";
+}
+
+<h2>Thông tin thành viên</h2>
+
+<div>
+	<dl style="background: #202020;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        text-align: center" ; color: white" class="dl-horizontal">
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Role.RoleName)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Role.RoleName)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Email)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Email)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.DateCreated)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DateCreated)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.DateEdited)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DateEdited)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.DOB)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DOB)
+		</dd>
+
+	</dl>
+</div>

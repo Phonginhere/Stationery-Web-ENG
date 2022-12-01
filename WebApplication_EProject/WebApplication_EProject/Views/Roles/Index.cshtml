@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WebApplication_EProject.Models.EmployeeModel.Role>
+
+@{
+	ViewBag.Title = "Department";
+}
+
+<h2>Department</h2>
+
+
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.RoleName)
+		</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.RoleName)
+			</td>
+		</tr>
+	}
+
+</table>

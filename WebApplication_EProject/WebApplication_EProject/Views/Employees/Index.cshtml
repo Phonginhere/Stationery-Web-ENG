@@ -1,0 +1,139 @@
+﻿@model IEnumerable<WebApplication_EProject.Models.EmployeeModel.Employee>
+@{
+	ViewBag.Title = "Employee Information";
+
+	List<SelectListItem> listItems = new List<SelectListItem>();
+	listItems.Add(new SelectListItem
+	{
+		Text = "Activate",
+		Value = "1"
+	});
+	listItems.Add(new SelectListItem
+	{
+		Text = "Disable",
+		Value = "0"
+	});
+}
+
+@if (ViewBag.Alert != null)
+{
+	<div class="alert alert-success alert-dismissible">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Succesfully!</strong> @ViewBag.Alert
+
+	</div>
+}
+@if (ViewBag.problem != null)
+{
+	<div class="alert alert-danger alert-dismissible">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Fail!</strong> @ViewBag.problem
+
+	</div>
+}
+<h2 style="text-align:center">Employee Information</h2>
+
+<div>
+	<button href="javascript:void(0);" class="anchorEdit btn btn-warning glyphicon glyphicon-plus"
+			data-toggle="tooltip" data-placement="top" title="Create" onclick="window.location.href='@Url.Action("Create", "Employees")'" />
+</div>
+
+<body>
+
+	@using (Html.BeginForm("Index", "Employees", FormMethod.Get))
+	{
+		@Html.AntiForgeryToken()
+		<table>
+			<tr color: white">
+
+				<td>Search: <input name="SearchString" type="text" class="form-control" /></td>
+
+				<td>Department: @Html.DropDownList("Role_ID", null, "Select a department ", htmlAttributes: new { @class = "form-control" })</td>
+				<td>Status: @Html.DropDownList("Status", listItems, "-- Select Status --", htmlAttributes: new { @class = "form-control" })</td>
+				<td style="position: relative; top: 10px;">
+					<input type="submit" value="Find" class="btn btn-info rounded-0" />
+				</td>
+
+			</tr>
+		</table>
+	}
+	<table class="table">
+
+		<tr style="background: #202020;
+        color: white">
+			<td>
+				@Html.DisplayNameFor(model => model.Role.RoleName)
+			</td>
+			<td>
+				Full Name
+			</td>
+			<td>
+				@Html.DisplayNameFor(model => model.Email)
+			</td>
+			<td>
+				@Html.DisplayNameFor(model => model.DateCreated)
+			</td>
+			<td>
+				@Html.DisplayNameFor(model => model.DOB)
+			</td>
+			<td>
+				@Html.DisplayNameFor(model => model.Status)
+			</td>
+			<th>
+
+			</th>
+			<th>
+
+			</th>
+			<th>
+
+			</th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+			<tr style=" border: hidden;
+                border-color: black;">
+				<td>
+					@Html.DisplayFor(modelItem => item.Role.RoleName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Email)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DateCreated)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DOB)
+				</td>
+				<td>
+					@if (item.Status == 1)
+					{
+						<p>Activate</p>
+					}
+					else if (item.Status == 0)
+					{
+						<p>Disable</p>
+					}
+				</td>
+
+				<td>
+					<button href="javascript:void(0);" data-id="@item.Employee_ID" class="anchorEdit btn btn-warning glyphicon glyphicon-edit"
+							data-toggle="tooltip" data-placement="top" title="Edit" onclick="window.location.href='@Url.Action("Edit", "Employees", new { id = item.Employee_ID })'" />
+				</td>
+				<td>
+					<button href="javascript:void(0);" data-id="@item.Employee_ID" class="anchorDetail btn btn-info glyphicon glyphicon-info-sign"
+							data-toggle="tooltip" data-placement="top" title="Details" onclick="window.location.href='@Url.Action("Details", "Employees", new { id = item.Employee_ID })'" />
+				</td>
+				<td>
+					<button href="javascript:void(0);" data-id="@item.Employee_ID" class="anchorDelete btn btn-danger glyphicon glyphicon-trash"
+							data-toggle="tooltip" data-placement="top" title="Delete" onclick="window.location.href='@Url.Action("Delete", "Employees", new { id = item.Employee_ID })'" />
+				</td>
+			</tr>
+		}
+
+	</table>
+</body>

@@ -1,0 +1,90 @@
+﻿@model WebApplication_EProject.Models.Request.Request
+
+@{
+	ViewBag.Title = "Input Price";
+}
+
+
+@using (Html.BeginForm("Input_Price", "Requests", FormMethod.Post))
+{
+	<div style="background: #202020;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        text-align: center">
+		<h4>Input Price</h4>
+		<hr />
+		<dl class="dl-horizontal">
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Role.RoleName)
+			</dt>
+
+			<dd>
+				@ViewBag.role
+				<input type="hidden" name="RoleName" value="@ViewBag.role" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Stationery.productName)
+			</dt>
+
+			<dd>
+				@ViewBag.product
+				<input type="hidden" name="productName" value="@ViewBag.product" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Unit)
+			</dt>
+
+			<dd>
+				@ViewBag.unit
+				<input type="hidden" name="Unit" value="@ViewBag.unit" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Quantity)
+			</dt>
+
+			<dd>
+				@ViewBag.quantity
+				<input type="hidden" name="Quantity" value="@ViewBag.quantity" />
+			</dd>
+
+			<dt>
+				@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+			</dt>
+
+			<dd>
+				@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @min = "1"} })
+				@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Status)
+			</dt>
+
+			<dd>
+				@if(ViewBag.status == "2")
+				{
+				<p>Office supplies stationery add Unit Price</p>
+				}
+				<input type="hidden" name="Status" value="@ViewBag.status" />
+			</dd>
+		</dl>
+	</div>
+	<p>
+		<input type="submit" value="Save" class="btn btn-default" />
+		@Html.ActionLink("Back to Index", "Index")
+	</p>
+}
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}

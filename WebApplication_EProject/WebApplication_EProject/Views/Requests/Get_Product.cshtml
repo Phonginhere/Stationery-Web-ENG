@@ -1,0 +1,91 @@
+﻿@model WebApplication_EProject.Models.Request.Request
+@{
+	ViewBag.Title = "Get Product from Office Supplies Department";
+}
+
+@using (Html.BeginForm("Get_Product", "Requests", FormMethod.Post))
+{
+
+	@Html.AntiForgeryToken();
+	<div style="background: #202020;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        text-align: center">
+		<h4>Office Supplies Department</h4>
+		<hr />
+		<dl class="dl-horizontal">
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Role.RoleName)
+			</dt>
+
+			<dd>
+				@ViewBag.role
+				<input type="hidden" name="RoleName" value="@ViewBag.role" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Stationery.productName)
+			</dt>
+
+			<dd>
+				@ViewBag.product
+				<input type="hidden" name="productName" value="@ViewBag.product" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Unit)
+			</dt>
+
+			<dd>
+				@ViewBag.unit
+				<input type="hidden" name="Unit" value="@ViewBag.unit" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Quantity)
+			</dt>
+
+			<dd>
+				@ViewBag.quantity
+				<input type="hidden" name="Quantity" value="@ViewBag.quantity" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Status)
+			</dt>
+
+			<dd>
+				@if (ViewBag.status == "6")
+				{
+				<p>Human Resources Department receive stationery product</p>
+				}
+				<input type="hidden" name="Status" value="@ViewBag.status" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Note)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Note)
+			</dd>
+			<dt>
+				Confirm
+			</dt>
+			<dd>
+				@Html.CheckBox("approve", "Confirm")
+			</dd>
+		</dl>
+	</div>
+	<p>
+		<input type="submit" value="Lưu" class="btn btn-default" />
+		@Html.ActionLink("Quay trở lại trang yêu cầu", "Index")
+	</p>
+}

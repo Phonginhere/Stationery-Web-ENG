@@ -1,0 +1,91 @@
+﻿@model WebApplication_EProject.Models.EmployeeModel.Employee
+
+@{
+	ViewBag.Title = "Employee Details";
+}
+
+
+<body style="background-color: #EBEBEB">
+	<div style="background: #202020;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        text-align: center" ; color: white">
+		<h2 style="text-align:center">Employee Details</h2>
+		<hr />
+		<dl class="dl-horizontal">
+			<dt>
+				@Html.DisplayNameFor(model => model.Status)
+			</dt>
+
+			<dd>
+				@if (Model.Status == 1)
+				{
+					<p>Activate</p>
+				}
+				else if (Model.Status == 0)
+				{
+					<p>Disable</p>
+				}
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Name)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Name)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Email)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Email)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.PhoneNum)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.PhoneNum)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.DateCreated)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.DateCreated)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.DateEdited)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.DateEdited)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.DOB)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.DOB)
+			</dd>
+
+		</dl>
+	</div>
+	<p>
+		@Html.ActionLink("Sửa thông tin", "Edit", new { id = Model.Employee_ID }) |
+		@Html.ActionLink("Quay trở lại bảng thông tin", "Index")
+	</p>
+</body>

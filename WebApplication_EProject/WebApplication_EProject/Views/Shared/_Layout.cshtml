@@ -1,0 +1,121 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>@ViewBag.Title - Web Based Stationery Management System</title>			
+		@Styles.Render("~/Content/css")
+		@Scripts.Render("~/bundles/modernizr")
+		<link href="~/projectfavicon.ico" rel="icon" type="image/x-icon" />
+	</head>
+	<body style="background: #ecc19e;" >
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					@Html.ActionLink("HMT Technologies", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li>@Html.ActionLink("Tutorial", "Tutorial", "Home")</li>
+						<li>@Html.ActionLink("Employees", "Index", "Employees")</li>
+						<li>@Html.ActionLink("Log", "Index", "Logs")</li>
+						@*Begin Q&A panel*@
+						<li>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								Q&A
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li>@Html.ActionLink("Question", "Question_Index", "Questions")</li>
+								<li>@Html.ActionLink("List Question", "Index", "Questions")</li>
+								<li>@Html.ActionLink("List Answers", "Index", "Answers")</li>
+							</ul>
+						</li>
+						@*End Q&A panel*@
+
+						@*Begin request panel*@
+						<li>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								Stationery Requests
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li>@Html.ActionLink("Request", "Index", "Requests")</li>
+								<li>@Html.ActionLink("Request Collection ", "Index_Group_Product", "Requests")</li>
+								<li>@Html.ActionLink("Stationery", "Index", "Stationeries")</li>
+							</ul>
+						</li>
+						@*End request panel*@
+					</ul>
+					@Html.Partial("_LoginPartial")
+				</div>
+			</div>
+		</div>
+		<div class="container body-content">
+			@RenderBody()
+			<hr />
+			<footer>
+				@*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+			</footer>
+		</div>
+
+		@Scripts.Render("~/bundles/jquery")
+		@Scripts.Render("~/bundles/bootstrap")
+		@RenderSection("scripts", required: false)
+	</body>
+</html>
+}
+else
+{
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - Web Based Stationery Management System</title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	<link href="~/projectfavicon.ico" rel="icon" type="image/x-icon" />
+</head>
+<body style="background-image: url(../images/4.jpg)">
+	<div class="navbar navbar-inverse navbar-fixed-top" style="opacity: 0.5">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				@*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+			</div>
+			<div class="navbar-collapse collapse">
+				@*<ul class="nav navbar-nav">
+						<li>@Html.ActionLink("Home", "Index", "Home")</li>
+						<li>@Html.ActionLink("About", "About", "Home")</li>
+						<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+					</ul>*@
+				@Html.Partial("_LoginPartial")
+			</div>
+		</div>
+	</div>
+	<div class="container body-content">
+		@RenderBody()
+		<footer>
+			@*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+		</footer>
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+</body>
+</html>
+}
+

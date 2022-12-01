@@ -1,0 +1,224 @@
+﻿@model IEnumerable<WebApplication_EProject.Models.Request.Request>
+@using Microsoft.AspNet.Identity;
+@using WebApplication_EProject.Models;
+@{
+	ViewBag.Title = "Trang chủ";
+}
+<body style="background-color: #EBEBEB">
+	@{
+		ModelContext db = new ModelContext();
+		var user_check = User.Identity.GetUserName();
+		var check_user = db.Employees.Where(c => c.Email == user_check);
+		String username = check_user.Select(r => r.Name).First();
+		int role_check = (int)check_user.Select(r => r.Role_ID).First();
+
+
+		<h2 style="text-align:center">Hello @username</h2>
+		if (role_check == 2) //manager
+		{
+			<h3>Current number of employees : @ViewBag.count_employee</h3>
+			<h3>Number of stationery: @ViewBag.count_stationery</h3>
+			<h3>Request </h3>
+			<h4>Number of cancellations Requests from staff: @ViewBag.count_request_cancel</h4>
+			<h4>Number of Request Rejections : @ViewBag.count_request_refused</h4>
+			<h4>Number of New Requests created: @ViewBag.count_donhang_newly_created</h4>
+			<h4>Quantity Requested supplies are being purchased: @ViewBag.count_request_supplies_buy_product</h4>
+			<h4>The number of members who can multiply the row is:  @ViewBag.count_request_employee_getproduct</h4>
+			<h4>The number of members paying is: @ViewBag.count_request_return_product</h4>
+
+		}
+		else if (role_check == 6) // Head office
+		{
+			<h4>Number of New Requests made from employees : @ViewBag.count_donhang_newly_created_production_staff</h4>
+		}
+		else if (role_check == 3) // Human Resources
+		{
+			<h4>Members of the department have not received the goods  @ViewBag.count_request_employee_havenot_receive_product</h4>
+			<h4>Members of department payment product : @ViewBag.count_request_return_to_human_resources_department</h4>
+		}
+		else if (role_check == 5) // Supplies
+		{
+			<h4>Number of stationery : @ViewBag.count_stationery</h4>
+			<h4>Quantity to add unit price : @ViewBag.group_by_need_addunitprice</h4>
+			<h4>Quantity Required to buy : @ViewBag.group_by_buy_product</h4>
+		}
+		else if (role_check == 4) // phòng Accountant
+		{
+			<h4>Need to pay for product: @ViewBag.group_by_sendmoney</h4>
+		}
+
+	}
+	<h4>Request your stationery below : </h4>
+	@if (ViewBag.app_false != null)
+	{
+		<div class="alert alert-danger alert-dismissible">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Fail!</strong> @ViewBag.app_false
+		</div>
+	}
+	@if (ViewBag.Error != null)
+	{
+		<div class="alert alert-danger alert-dismissible">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Fail!</strong> @ViewBag.Error
+		</div>
+	}
+	@{
+		List<SelectListItem> listItems = new List<SelectListItem>();
+		listItems.Add(new SelectListItem
+		{
+			Text = "Cancel Request",
+			Value = "-2"
+		});
+		listItems.Add(new SelectListItem
+		{
+			Text = "Head of Department is reviewing",
+			Value = "0"
+		});
+		listItems.Add(new SelectListItem
+		{
+			Text = "Manager is reviewing ",
+			Value = "1"
+		});
+		listItems.Add(new SelectListItem
+		{
+			Text = "Refuse Request",
+			Value = "-1"
+		});
+		listItems.Add(new SelectListItem
+		{
+			Text = "Not Picked Up",
+			Value = "7"
+		});
+		listItems.Add(new SelectListItem
+		{
+			Text = "Has received stationery",
+			Value = "8"
+		});
+		listItems.Add(new SelectListItem
+		{
+			Text = "human resources department is taking back the goods",
+			Value = "9"
+		});
+		listItems.Add(new SelectListItem
+		{
+			Text = "Already return stationery product",
+			Value = "10"
+		});
+	}
+
+	@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+	{
+
+		@Html.DropDownList("Status_Check", listItems, "-- Select Status --")
+		<input type="submit" value="submit" />
+	}
+	<table class="table">
+		<tr style="background: #202020;
+        color: white">
+			<th>
+				@Html.DisplayNameFor(model => model.Employee.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Role.RoleName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Stationery.productName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Unit)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Quantity)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Purpose)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DateAdd)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Status)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Pause)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Note)
+			</th>
+			<th></th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+			if (item.Status < 2 || (item.Status >= 7 && item.Status <= 10))
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Employee.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Role.RoleName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Stationery.productName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Unit)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Quantity)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Purpose)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.DateAdd)
+					</td>
+					<td>
+						@if (item.Status == -2)
+						{
+							<p>Cancel Request</p>
+						}
+						else if (item.Status == 0)
+						{
+							<p>Head of Department is reviewing</p>
+						}
+						else if (item.Status == 1)
+						{
+							<p>Manager is reviewing </p>
+						}
+						else if (item.Status == -1)
+						{
+							<p>Refused request</p>
+						}
+						else if (item.Status == 7)
+						{
+							<p>Not Picked Up</p>
+						}
+						else if (item.Status == 8)
+						{
+							<p>Has received stationery</p>
+						}
+						else if (item.Status == 9)
+						{
+							<p>human resources department is taking back the goods</p>
+						}
+						else if (item.Status == 10)
+						{
+							<p>Already return stationery product</p>
+						}
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Pause)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Note)
+					</td>
+				</tr>
+			}
+
+		}
+
+	</table>
+</body>

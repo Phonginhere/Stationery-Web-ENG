@@ -1,0 +1,47 @@
+﻿@model WebApplication_EProject.Models.Request.Stationery
+
+@{
+	ViewBag.Title = "Remove Stationery";
+}
+
+<h3>Do you want to remove it?</h3>
+<div>
+	<h4>Stationery Product Delete</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.productName)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.productName)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.producer)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.producer)
+		</dd>
+
+		<dt>
+			Ảnh
+		</dt>
+
+		<dd>
+			<img src="~/images/@Model.productImage" width="150" height="150" />
+		</dd>
+
+	</dl>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-actions no-color">
+			<input type="submit" value="Delete" class="btn btn-default" /> |
+			@Html.ActionLink("Back to the stationery info", "Index")
+		</div>
+	}
+</div>

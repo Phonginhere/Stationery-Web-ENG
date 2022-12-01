@@ -1,0 +1,164 @@
+﻿@model WebApplication_EProject.Models.Request.Request
+
+@{
+	ViewBag.Title = "Head of Department is reviewing";
+}
+
+<script type="text/javascript">
+	function denyStatus() {
+		document.getElementById("note").disabled = false;
+	}
+	function noStatus() {
+		document.getElementById("note").disabled = true;
+	}
+	function approveStatus() {
+		document.getElementById("note").disabled = true;
+	}
+	function pauseStatus() {
+		document.getElementById("note").disabled = true;
+	}
+</script>
+
+@using (Html.BeginForm("Head_Check", "Requests", FormMethod.Post))
+{
+
+	@Html.AntiForgeryToken();
+	<div style="background: #202020;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        text-align: center">
+		<h4>Head of Department is reviewing</h4>
+		<hr />
+		<dl class="dl-horizontal">
+			<dd>
+				@Html.HiddenFor(model => model.Request_Id)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Employee.Name)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Employee.Name)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Role.RoleName)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Role.RoleName)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Stationery.productName)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Stationery.productName)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Unit)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Unit)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Quantity)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Quantity)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Price)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Price)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Purpose)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Purpose)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.DateAdd)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.DateAdd)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Status)
+			</dt>
+
+			<dd>
+				@if (Model.Status == 0)
+				{
+				<p>Head of Department is reviewing</p>
+				}
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Pause)
+			</dt>
+
+			<dd>
+				@if (Model.Pause == true)
+				{
+					<p>Yes</p>
+				}
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Note)
+			</dt>
+
+			<dd>
+				@Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control", id = "note", disabled = "disabled" } })
+				@Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+			</dd>
+
+			<dt>
+				Status
+			</dt>
+
+			<dd>
+				Not Approved yet @Html.RadioButtonFor(m => m.Status, "0", new { onclick = "if(this.checked){noStatus()}" })|
+				Approved @Html.RadioButtonFor(m => m.Status, "1", new { onclick = "if(this.checked){approveStatus()}" })|
+				Refused @Html.RadioButtonFor(m => m.Status, "-1", new { onclick = "if(this.checked){denyStatus()}" })|
+				Pause @Html.RadioButtonFor(m => m.Status, "1.5", new { onclick = "if(this.checked){pauseStatus()}" })
+			</dd>
+			<dt>
+				Confirmed
+			</dt>
+			<dd>
+				@Html.CheckBox("approve", "Confirm")
+			</dd>
+		</dl>
+	</div>
+	<p>
+		<input type="submit" value="Save" class="btn btn-default" />
+		@Html.ActionLink("Back to Index", "Index")
+	</p>
+}
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}

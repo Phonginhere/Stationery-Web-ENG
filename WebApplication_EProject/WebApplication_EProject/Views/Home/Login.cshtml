@@ -1,0 +1,85 @@
+﻿@model WebApplication_EProject.Models.EmployeeModel.Employee
+
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+<head>
+
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Simple Signin Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- Meta tag Keywords -->
+	<!-- css files -->
+	<link rel="stylesheet" href="~/css/style.css" type="text/css" media="all" />
+	<!-- Style-CSS -->
+	<link rel="stylesheet" href="~/css/font-awesome.css">
+	<!-- Font-Awesome-Icons-CSS -->
+	<!-- //css files -->
+	<!-- web-fonts -->
+	<link href="//fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+	<!-- //web-fonts -->
+</head>
+
+<body>
+
+	<!--header-->
+	<div class="header-w3l">
+		<h1>
+			Lo<span>g</span>in Fo<span>r</span>m
+		</h1>
+	</div>
+	<!--//header-->
+	<div class="main-content-agile">
+		<div class="sub-main-w3">
+			<h2>Log In</h2>
+			@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+			{
+				@Html.AntiForgeryToken()
+				<label>Email</label>
+				<div class="pom-agile">
+					<span class="fa fa-user-o" aria-hidden="true"></span>
+					@*<input placeholder="Username" name="Name" class="user" type="text" required="">*@
+					@Html.TextBoxFor(m => m.Email, new { @class = "user", @placeholder = "Username", @required = "" })
+				</div>
+				<label>Password</label>
+				<div class="pom-agile">
+					<span class="fa fa-key" aria-hidden="true"></span>
+					@*<input placeholder="Password" name="Password" class="pass" type="password" required="">*@
+
+					@Html.PasswordFor(m => m.Password, new { @class = "pass", @placeholder = "Password", @required = "" })
+				</div>
+				<div style="color: red;">@ViewBag.haha</div>
+				<div class="sub-w3l">
+					<a href="~/Home/Forget">Forget Your Password</a>
+
+				</div>
+				<div class="right-w3l">
+					<input type="submit" value="Signin">
+				</div>
+			}
+		</div>
+	</div>
+	<!--//main-->
+	<!--footer-->
+	<div class="footer">
+		<p>
+			&copy; 2021 Log In Form. All rights reserved | Design by
+			<a href="https://www.facebook.com/vunguyen.nguyen.94064176/">HMT Technologies</a>
+		</p>
+	</div>
+	<!--//footer-->
+</body>
+
+</html>
+

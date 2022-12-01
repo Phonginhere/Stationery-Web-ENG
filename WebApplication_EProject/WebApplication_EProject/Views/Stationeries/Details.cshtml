@@ -1,0 +1,49 @@
+﻿@model WebApplication_EProject.Models.Request.Stationery
+
+@{
+	ViewBag.Title = "Stationery Details";
+}
+
+<div style="background: #202020;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        text-align: center">
+	<h4>Stationery Product Details</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.productName)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.productName)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.producer)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.producer)
+		</dd>
+
+		<dt>
+			Ảnh
+		</dt>
+
+		<dd>
+			<img src="~/images/@Model.productImage" width="150" height="150" />
+		</dd>
+
+	</dl>
+</div>
+<p>
+	@Html.ActionLink("Edit", "Edit", new { id = Model.productID }) |
+	@Html.ActionLink("Back to the Stationeries info", "Index")
+</p>

@@ -1,0 +1,227 @@
+﻿@model IEnumerable<WebApplication_EProject.Models.Request.Request>
+@using WebApplication_EProject.Models;
+@using Microsoft.AspNet.Identity;
+@{
+	ViewBag.Title = "Request Information";
+}
+
+<h2>Request Information</h2>
+@if (ViewBag.app_false != null)
+{
+	<div class="alert alert-danger alert-dismissible">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Fail!</strong> @ViewBag.app_false
+	</div>
+}
+@if (ViewBag.Notify != null)
+{
+	<div class="alert alert-success alert-dismissible">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Success!</strong> @ViewBag.Notify
+	</div>
+}
+
+@{
+	List<SelectListItem> listItems = new List<SelectListItem>();
+	listItems.Add(new SelectListItem
+	{
+		Text = "Cancel Request",
+		Value = "-2"
+	});
+	listItems.Add(new SelectListItem
+	{
+		Text = "Head of Department is reviewing",
+		Value = "0"
+	});
+	listItems.Add(new SelectListItem
+	{
+		Text = "Manager is reviewing ",
+		Value = "1"
+	});
+	listItems.Add(new SelectListItem
+	{
+		Text = "Refuse Request",
+		Value = "-1"
+	});
+	listItems.Add(new SelectListItem
+	{
+		Text = "Not Picked Up",
+		Value = "7"
+	});
+	listItems.Add(new SelectListItem
+	{
+		Text = "Has received stationery",
+		Value = "8"
+	});
+	listItems.Add(new SelectListItem
+	{
+		Text = "human resources department is taking back the goods",
+		Value = "9"
+	});
+	listItems.Add(new SelectListItem
+	{
+		Text = "Already return stationery product",
+		Value = "10"
+	});
+}
+<body style="background-color: #EBEBEB">
+
+	@using (Html.BeginForm("Index", "Requests", FormMethod.Get))
+	{
+		@Html.DropDownList("Status_Check", listItems, "-- Choose Status --", htmlAttributes: new { @class = "form-control" })
+		@Html.DropDownList("Role_ID", null, "-- Choose Department --", htmlAttributes: new { @class = "form-control" })
+		<input type="submit" value="Tìm kiếm" />
+	}
+
+	<p>
+		@Html.ActionLink("Create New", "Create")
+	</p>
+
+	<table class="table">
+		<tr style="background: #202020;
+        color: white">
+			<th>
+				@Html.DisplayNameFor(model => model.Employee.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Role.RoleName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Stationery.productName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Unit)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Quantity)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Purpose)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DateAdd)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Status)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Pause)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Note)
+			</th>
+			<th></th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+			if (item.Status < 2 || (item.Status >= 7 && item.Status <= 10))
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Employee.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Role.RoleName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Stationery.productName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Unit)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Quantity)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Purpose)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.DateAdd)
+					</td>
+					<td>
+						@if (item.Status == -2)
+						{
+							<p>Cancel Request</p>
+						}
+						else if (item.Status == 0)
+						{
+							<p>Head of Department is reviewing</p>
+						}
+						else if (item.Status == 1)
+						{
+							<p>Manager is reviewing </p>
+						}
+						else if (item.Status == -1)
+						{
+							<p>Refused request</p>
+						}
+						else if (item.Status == 7)
+						{
+							<p>Not Picked Up</p>
+						}
+						else if (item.Status == 8)
+						{
+							<p>Has received stationery</p>
+						}
+						else if (item.Status == 9)
+						{
+							<p>human resources department is taking back the goods</p>
+						}
+						else if (item.Status == 10)
+						{
+							<p>Already return stationery product</p>
+						}
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Pause)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Note)
+					</td>
+					<td>
+						@{
+							ModelContext db = new ModelContext();
+							var user_check = User.Identity.GetUserName();
+							var check_user = db.Employees.Where(c => c.Email == user_check);
+							int role_check = (int)check_user.Select(r => r.Role_ID).First();
+
+							var check = db.Requests.FirstOrDefault(c => c.Request_Id == item.Request_Id);
+							int check_status = check.Status;
+						}
+
+						@if (check_status == 0)
+						{
+							@Html.ActionLink("Check", "Head_Check", new { id = item.Request_Id })
+						}
+						else if (check_status == 1)
+						{
+							@Html.ActionLink("Check", "Manager_Check_Employee", new { id = item.Request_Id })
+						}
+						else if (check_status == 7)
+						{
+							@Html.ActionLink("Get Product", "GetProduct_Employee", new { id = item.Request_Id, employee_id = item.Employee_ID })
+						}
+						else if (check_status == 8)
+						{
+							@Html.ActionLink("Return Prodcut", "Returns_Product", new { id = item.Request_Id, employee_id = item.Employee_ID })
+						}
+						else if (check_status == 9)
+						{
+							@Html.ActionLink("Getting Product from Employee", "Taking_back", new { id = item.Request_Id })
+						}|
+
+						@Html.ActionLink("Details", "Details", new { id = item.Request_Id })
+						|
+						@if (check_status == 0 || (check_status == 1 && role_check == 2))
+						{
+							@Html.ActionLink("Cancel", "Delete", new { id = item.Request_Id })
+						}
+					</td>
+				</tr>
+			}
+
+		}
+
+	</table>
+</body>

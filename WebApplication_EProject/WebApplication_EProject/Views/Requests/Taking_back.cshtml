@@ -1,0 +1,115 @@
+﻿@model WebApplication_EProject.Models.Request.Request
+@{
+	ViewBag.Title = "Get Product from Employees";
+}
+
+
+@using (Html.BeginForm("Taking_back", "Requests", FormMethod.Post))
+{
+
+	@Html.AntiForgeryToken();
+	<div style="background: #202020;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        text-align: center">
+		<h4>Get Product from Employees</h4>
+		<hr />
+		<dl class="dl-horizontal">
+			<dd>
+				@Html.HiddenFor(model => model.Request_Id)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Employee.Name)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Employee.Name)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Role.RoleName)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Role.RoleName)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Stationery.productName)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Stationery.productName)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Unit)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Unit)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Quantity)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Quantity)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Price)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Price)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Purpose)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Purpose)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.DateAdd)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.DateAdd)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Status)
+			</dt>
+
+			<dd>
+				@if (Model.Status == 9)
+				{
+				<p>Human resources department is taking back the goods</p>
+				}
+				@Html.HiddenFor(model => model.Status)
+			</dd>
+			<dt>
+				Confirm
+			</dt>
+			<dd>
+				@Html.CheckBox("approve", "Confirm")
+			</dd>
+		</dl>
+	</div>
+	<p>
+		<input type="submit" value="Save" class="btn btn-default" />
+		@Html.ActionLink("Back to Index", "Index")
+	</p>
+}

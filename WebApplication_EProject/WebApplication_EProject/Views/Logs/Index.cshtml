@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebApplication_EProject.Models.Request.Log>
+
+@{
+	ViewBag.Title = "Log Information";
+}
+
+<h2>Log Information</h2>
+@using (Html.BeginForm("Index", "Logs", FormMethod.Post))
+{
+	@Html.DropDownList("Role_ID", null, "-- Choose Department --", htmlAttributes: new { @class = "form-control" })
+	<input type="submit" value="submit" />
+}
+<body style="background-color: #EBEBEB">
+    <table class="table">
+        <tr style="background: #202020;
+        color: white">
+            <th>
+                @Html.DisplayNameFor(model => model.Employee.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Request.Stationery.productName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Request.DateAdd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role.RoleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LogName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LogDate)
+            </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                <th>
+                    @Html.DisplayFor(model => item.Request.Stationery.productName)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Request.DateAdd)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.RoleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LogName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LogDate)
+                </td>
+            </tr>
+        }
+
+        </table>
+        </body>

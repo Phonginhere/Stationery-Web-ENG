@@ -1,0 +1,110 @@
+﻿@model WebApplication_EProject.Models.Request.Request
+@{
+	ViewBag.Title = "Send Money";
+}
+
+<h2>Send Money</h2>
+
+@using (Html.BeginForm("Send_Money", "Requests", FormMethod.Post))
+{
+
+	@Html.AntiForgeryToken();
+	<div style="background: #202020;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        text-align: center">
+		<h4>Request</h4>
+		<hr />
+		<dl class="dl-horizontal">
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Role.RoleName)
+			</dt>
+
+			<dd>
+				@ViewBag.role
+				<input type="hidden" name="RoleName" value="@ViewBag.role" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Stationery.productName)
+			</dt>
+
+			<dd>
+				@ViewBag.product
+				<input type="hidden" name="productName" value="@ViewBag.product" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Unit)
+			</dt>
+
+			<dd>
+				@ViewBag.unit
+				<input type="hidden" name="Unit" value="@ViewBag.unit" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Quantity)
+			</dt>
+
+			<dd>
+				@ViewBag.quantity
+				<input type="hidden" name="Quantity" value="@ViewBag.quantity" />
+			</dd>
+
+			<dt>
+				@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+			</dt>
+
+			<dd>
+				@ViewBag.price
+				<input type="hidden" name="Quantity" value="@ViewBag.price" />
+			</dd>
+
+			<dt>
+				Total Price
+			</dt>
+
+			<dd>
+				@ViewBag.tontien
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Status)
+			</dt>
+
+			<dd>
+				@if (ViewBag.status == "4")
+				{
+				<p>Accountants pay for supplies department</p>
+				}
+				<input type="hidden" name="Status" value="@ViewBag.status" />
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Note)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Note)
+			</dd>
+			<dt>
+				Deposit Confirmation
+			</dt>
+			<dd>
+				@Html.CheckBox("approve", "Confirm")
+			</dd>
+		</dl>
+	</div>
+	<p>
+		<input type="submit" value="Save" class="btn btn-default" />
+		@Html.ActionLink("Quay trở lại trang yêu cầu", "Index")
+	</p>
+}
