@@ -48,7 +48,7 @@ namespace WebApplication_EProject
             //employee
             var employees = new List<Employee>
         {
-            new Employee { Employee_ID = 1, Name = "Hải Phong Trần", Email = "tranhaiphong2016fpt@gmail.com", PhoneNum = "0312345678", DateCreated = DateTime.Now,
+            new Employee { Employee_ID = 1, Name = "Hải Phong Trần", Email = "inputemail@gmail.com", PhoneNum = "0312345678", DateCreated = DateTime.Now,
                 DateEdited = DateTime.Now,  DOB = Convert.ToDateTime("2004-04-12 00:00:00.000"),
                 Password = BCrypt.Net.BCrypt.HashPassword("@Phongloveweb123"), Role_ID = 1, Status = 1}
 
